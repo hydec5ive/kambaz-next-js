@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function AssignmentEditor() {
   return (
     <div id="wd-assignments-editor">
@@ -16,7 +17,7 @@ export default function AssignmentEditor() {
               <label htmlFor="wd-points">Points</label>
             </td>
             <td>
-              <input id="wd-points" defaultValue={100} />
+              <input id="wd-points" type="number" defaultValue={100} />
             </td>
           </tr> 
 
@@ -122,7 +123,9 @@ export default function AssignmentEditor() {
 
       <br />
       <hr />
-      <button>Cancel</button>
+      <Link href="/courses/1234/assignments">
+        <button>Cancel</button>
+      </Link>
       <button>Save</button>
     </div>
   );

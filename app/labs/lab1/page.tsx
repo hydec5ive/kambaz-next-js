@@ -97,25 +97,25 @@ tag to tell browsers to render the gaps.
             </tr>
             <tr> 
               <td>Q4</td>
-              <td>JavaScript</td>
+              <td>Typescript</td>
               <td>2/28/21</td>
               <td>93</td>
             </tr>
             <tr> 
               <td>Q5</td>
-              <td>JavaScript</td>
+              <td>CSS</td>
               <td>3/9/21</td>
               <td>100</td>
             </tr>
             <tr> 
               <td>Q6</td>
-              <td>JavaScript</td>
+              <td>Python</td>
               <td>3/17/21</td>
               <td>99</td>
             </tr>
             <tr> 
               <td>Q7</td>
-              <td>JavaScript</td>
+              <td>C++</td>
               <td>3/27/21</td>
               <td>96</td>
             </tr>
