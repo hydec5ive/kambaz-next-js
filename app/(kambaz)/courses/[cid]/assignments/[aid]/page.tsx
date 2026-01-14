@@ -64,7 +64,7 @@ export default function AssignmentEditor() {
           <tr>
             <td></td>
             <td>
-              <b>Online Entry Options</b><br />
+              Online Entry Options<br />
               
               <input type="checkbox" id="wd-text-entry" defaultChecked={false} />
               <label htmlFor="wd-text-entry">Text Entry</label><br />
@@ -84,35 +84,47 @@ export default function AssignmentEditor() {
           </tr> 
 
           <tr>
-            <td align="right" valign="top">
+            <td></td>
+            <td>
               <label htmlFor="wd-assign-to">Assign to</label>
             </td>
+          </tr> 
+    
+          <tr>
+            <td></td>
             <td>
               <input id="wd-assign-to" defaultValue="Everyone" />
             </td>
           </tr> 
 
           <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-due-date">Due</label>
-            </td>
+            <td></td>
             <td>
-              <input type="date" id="wd-due-date" defaultValue="2024-05-13" />
+              <label htmlFor="wd-due-date">Due</label>
             </td>
           </tr>
 
           <tr>
-            <td align="right" valign="top">
+            <td></td>
+            <td>
+              <input id="wd-due-date" defaultValue="2024-05-13" />
+            </td>
+          </tr> 
+
+          <tr>
+            <td></td>
+            <td>
               <label htmlFor="wd-available-from">Available from</label>
             </td>
             <td>
-              <input type="date" id="wd-available-from" defaultValue="2024-05-06" />
+              <label htmlFor="wd-available-until">Until</label>
             </td>
           </tr>
 
           <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-available-until">Until</label>
+            <td></td>
+            <td>
+              <input type="date" id="wd-available-from" defaultValue="2024-05-06" />
             </td>
             <td>
               <input type="date" id="wd-available-until" defaultValue="2024-05-20" />
