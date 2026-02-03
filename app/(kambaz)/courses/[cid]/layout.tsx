@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+"use client";
+
+import { ReactNode, use } from "react";
 import CourseNavigation from "./Navigation";
 import { FaAlignJustify } from "react-icons/fa";
 
@@ -7,9 +9,9 @@ export default function CourseLayout({
   params 
 }: Readonly<{ 
   children: ReactNode;
-  params: { cid: string };
+  params: Promise<{ cid: string }>; 
 }>) {
-  const { cid } = params;
+  const { cid } = use(params);
   
   return (
     <div id="wd-courses">
@@ -27,4 +29,5 @@ export default function CourseLayout({
         </div>
       </div>
     </div>
-  );}
+  );
+}
