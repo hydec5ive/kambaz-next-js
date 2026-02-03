@@ -1,8 +1,31 @@
 import "./index.css";
+import { Container } from "react-bootstrap";
+import ForegroundColors from "./ForegroundColors";
+import BackgroundColors from "./BackgroundColors";
+import Borders from "./Borders";
+import Padding from "./Padding";
+import Margins from "./Margins";
+import Corners from "./Corners";
+import Dimensions from "./Dimensions";
+import Positions from "./Positions";
+import Zindex from "./Zindex";
+import Float from "./Float";
+import GridLayout from "./GridLayout";
+import Flex from "./Flex";
+import MediaQueriesDemo from "./MediaQueriesDemo";
+import ReactIconsSampler from "./ReactIconsSampler";
+import BootstrapGrids from "./BootstrapGrids";
+import ScreenSizeLabel from "./ScreenSizeLabel";
+import BootstrapTables from "./BootstrapTables";
+import BootstrapLists from "./BootstrapLists";
+import BootstrapForms from "./BootstrapForms";
+import BootstrapNavigation from "./BootstrapNavigation";
+import Link from "next/link";
+
 
 export default function Lab2() {
   return (
-    <div id="wd-lab2">
+    <Container id="wd-lab2">
       <h2>Lab 2 - Cascading Style Sheets</h2>
       <h3>Styling with the STYLE attribute</h3>
       <p>
@@ -45,15 +68,45 @@ export default function Lab2() {
             meaning the descendant of some ancestor.<br />
             <span className="wd-selector-4">
               Whereas this span is a direct child of its parent
-            </span><br />
+            </span> <br />
               You can combine these relationships to create specific 
               styles depending on the document structure
           </p>
         </div>
       </div>
     </div>
+    <ForegroundColors />
+    <BackgroundColors />
 
+    <Borders />
+    <Padding />
+
+    <Margins />
+    <Corners />
     
-  </div>
+    <Dimensions />
+    <Positions />
+    <Zindex />
+    
+    <Float />
+    <GridLayout />
+    <Flex />
+    <MediaQueriesDemo />
+    <ReactIconsSampler />
+    <BootstrapGrids />
+    <BootstrapTables />
+    <BootstrapLists />
+    <BootstrapForms />
+    <BootstrapNavigation />
+    
+    <br />
+    <h3>Tailwind</h3>
+    <Link href="/labs/lab2/tailwind">Tailwind CSS Examples</Link>
+    <ScreenSizeLabel />
+
+
+
+
+  </Container>
   );
 }

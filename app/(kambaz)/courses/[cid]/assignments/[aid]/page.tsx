@@ -1,144 +1,138 @@
 import Link from "next/link";
+import Button from "react-bootstrap/esm/Button";
+import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/esm/Col";
+
 export default function AssignmentEditor() {
   return (
     <div id="wd-assignments-editor">
-      <label htmlFor="wd-name">Assignment Name</label><br />
-      <input id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
+      <div className="mb-3">
+        <label htmlFor="wd-name" className="form-label">Assignment Name</label>
+        <input id="wd-name" className="form-control" defaultValue="A1 - ENV + HTML" />
+      </div>
 
-      <label htmlFor="wd-description">Description</label><br />
-      <textarea id="wd-description" cols={50} rows={5} defaultValue="The assignment is available on..." />
-      <br />
-      <br />
-      
-      <table>
-        <tbody>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Points</label>
-            </td>
-            <td>
-              <input id="wd-points" type="number" defaultValue={100} />
-            </td>
-          </tr> 
+      <div className="mb-3">
+        <label htmlFor="wd-description" className="form-label">Description</label>
+        <textarea 
+          id="wd-description" 
+          className="form-control" 
+          rows={5} 
+          defaultValue="The assignment is available online..."
+        />
 
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-group">Assignment Group</label>
-            </td>
-            <td>
-              <select id="wd-group" defaultValue="ASSIGNMENTS">
-                <option value="ASSIGNMENTS">ASSIGNMENTS</option>
-                <option value="QUIZZES">QUIZZES</option>
-                <option value="EXAMS">EXAMS</option>
+      </div>
+      <Row className="mb-3">
+        <Col sm={3} className="text-end">
+          <label htmlFor="wd-points" className="col-form-label">Points</label>
+        </Col>
+        <Col sm={9}>
+          <input id="wd-points" className="form-control" type="number" defaultValue={100} />
+        </Col>
+      </Row>
 
-              </select>
-            </td>
-          </tr> 
+      <Row className="mb-3">
+        <Col sm={3} className="text-end">
+          <label htmlFor="wd-group" className="col-form-label">Assignment Group</label>
+        </Col>
+        <Col sm={9}>
+          <select id="wd-group" className="form-control" defaultValue="ASSIGNMENTS">
+            <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+            <option value="QUIZZES">QUIZZES</option>
+            <option value="EXAMS">EXAMS</option>
+          </select>
+        </Col>
+      </Row>
 
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-display-grade-as">Display Grade as</label>
-            </td>
-            <td>
-              <select id="wd-display-grade-as" defaultValue="PERCENTAGE">
-                <option value="PERCENTAGE">Percentage</option>
-                <option value="POINTS">Points</option>
-                <option value="LETTER">Letter Grade</option>
-              </select>
-            </td>
-          </tr> 
+      <Row className="mb-3">
+        <Col sm={3} className="text-end">
+          <label htmlFor="wd-display-grade-as" className="col-form-label">Display Grade as</label>
+        </Col>
+        <Col sm={9}>
+          <select id="wd-display-grade-as" className="form-control" defaultValue="PERCENTAGE">
+            <option value="PERCENTAGE">Percentage</option>
+            <option value="POINTS">Points</option>
+            <option value="LETTER">Letter Grade</option>
+          </select>
+        </Col>
+      </Row>
 
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-submission-type">Submission Type</label>
-            </td>
-            <td>
-              <select id="wd-submission-type" defaultValue="ONLINE">
-                <option value="ONLINE">Online</option>
-                <option value="PAPER">On Paper</option>
-                <option value="EXTERNAL">External Tool</option>
-              </select>
-            </td>
-          </tr>
+      <Row className="mb-3">
+        <Col sm={3} className="text-end">
+          <label htmlFor="wd-submission-type" className="col-form-label">Submission Type</label>
+        </Col>
+        <Col sm={9}>
+          <div className="border rounded p-3">
+            <select id="wd-submission-type" className="form-control mb-3" defaultValue="ONLINE">
+              <option value="ONLINE">Online</option>
+              <option value="PAPER">On Paper</option>
+              <option value="EXTERNAL">External Tool</option>
+            </select>
 
-          <tr>
-            <td></td>
-            <td>
-              Online Entry Options<br />
-              
-              <input type="checkbox" id="wd-text-entry" defaultChecked={false} />
-              <label htmlFor="wd-text-entry">Text Entry</label><br />
+            <label className="fw-bold mb-2">Online Entry Options</label>
+            
+            <div className="form-check">
+              <input type="checkbox" id="wd-text-entry" className="form-check-input" />
+              <label htmlFor="wd-text-entry" className="form-check-label">Text Entry</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-website-url" className="form-check-input" />
+              <label htmlFor="wd-website-url" className="form-check-label">Website URL</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-media-recordings" className="form-check-input" />
+              <label htmlFor="wd-media-recordings" className="form-check-label">Media Recordings</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-student-annotation" className="form-check-input" />
+              <label htmlFor="wd-student-annotation" className="form-check-label">Student Annotation</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-file-upload" className="form-check-input" />
+              <label htmlFor="wd-file-upload" className="form-check-label">File Uploads</label>
+            </div>
+          </div>
+        </Col>
+      </Row>
 
-              <input type="checkbox" id="wd-website-url" defaultChecked={false} />
-              <label htmlFor="wd-website-url">Website URL</label><br />
+      <Row className="mb-3">
+        <Col sm={3} className="text-end">
+          <label className="col-form-label">Assign</label>
+        </Col>
+        <Col sm={9}>
+          <div className="border rounded p-3">
+            <div className="mb-3">
+              <label htmlFor="wd-assign-to" className="fw-bold">Assign to</label>
+              <input id="wd-assign-to" className="form-control" defaultValue="Everyone" />
+            </div>
 
-              <input type="checkbox" id="wd-media-recordings" defaultChecked={false} />
-              <label htmlFor="wd-media-recordings">Media Recordings</label><br />
+            <div className="mb-3">
+              <label htmlFor="wd-due-date" className="fw-bold">Due</label>
+              <input type="date" id="wd-due-date" className="form-control" defaultValue="2024-05-13" />
+            </div>
 
-              <input type="checkbox" id="wd-student-annotation" defaultChecked={false} />
-              <label htmlFor="wd-student-annotation">Student Annotation</label><br />
-
-              <input type="checkbox" id="wd-file-upload" defaultChecked={false} />
-              <label htmlFor="wd-file-upload">File Uploads</label>
-            </td>
-          </tr> 
-
-          <tr>
-            <td></td>
-            <td>
-              <label htmlFor="wd-assign-to">Assign to</label>
-            </td>
-          </tr> 
-    
-          <tr>
-            <td></td>
-            <td>
-              <input id="wd-assign-to" defaultValue="Everyone" />
-            </td>
-          </tr> 
-
-          <tr>
-            <td></td>
-            <td>
-              <label htmlFor="wd-due-date">Due</label>
-            </td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td>
-              <input id="wd-due-date" defaultValue="2024-05-13" />
-            </td>
-          </tr> 
-
-          <tr>
-            <td></td>
-            <td>
-              <label htmlFor="wd-available-from">Available from</label>
-            </td>
-            <td>
-              <label htmlFor="wd-available-until">Until</label>
-            </td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td>
-              <input type="date" id="wd-available-from" defaultValue="2024-05-06" />
-            </td>
-            <td>
-              <input type="date" id="wd-available-until" defaultValue="2024-05-20" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <br />
+            <Row>
+              <Col sm={6}>
+                <div className="mb-3">
+                  <label htmlFor="wd-available-from" className="fw-bold">Available from</label>
+                  <input type="date" id="wd-available-from" className="form-control" defaultValue="2024-05-06" />
+                </div>
+              </Col>
+              <Col sm={6}>
+                <div className="mb-3">
+                  <label htmlFor="wd-available-until" className="fw-bold">Until</label>
+                  <input type="date" id="wd-available-until" className="form-control" defaultValue="2024-05-20" />
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </Col>
+      </Row>
       <hr />
-      <Link href="/courses/1234/assignments">
-        <button>Cancel</button>
-      </Link>
-      <button>Save</button>
+      <div className="d-flex justify-content-end">
+        <Link href="/courses/1234/assignments">
+          <Button variant="secondary" className="me-2">Cancel</Button>
+        </Link>
+        <Button variant="danger">Save</Button>
+      </div>
     </div>
-  );
-}
+  );}
