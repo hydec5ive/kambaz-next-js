@@ -32,10 +32,10 @@ export default function Modules() {
           </div>
           <ListGroup className="wd-lessons rounded-0">
             <ListGroupItem className="wd-lesson p-3 ps-1">
-              <BsGripVertical className="me-2 fs-3" /> LESSON 1 <LessonControlButtons />
+              <BsGripVertical className="me-2 fs-3" /> Intro to CSS <LessonControlButtons />
             </ListGroupItem>
             <ListGroupItem className="wd-lesson p-3 ps-1">
-              <BsGripVertical className="me-2 fs-3" /> LESSON 2 <LessonControlButtons />
+              <BsGripVertical className="me-2 fs-3" /> Learning Bootstrap Implementation <LessonControlButtons />
             </ListGroupItem>
           </ListGroup>
         </ListGroupItem>
