@@ -6,21 +6,10 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import * as db from "../../../../database";
 
-interface Assignment {
-  _id: string;
-  title: string;
-  course: string;
-  description: string;
-  points: number;
-  dueDate: string;
-  availableFrom: string;
-  availableUntil: string;
-}
-
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
-  const assignments: Assignment[] = db.assignments;
-  const assignment = assignments.find((a) => a._id === aid);
+  const assignments = db.assignments;
+  const assignment = assignments.find((a: any) => a._id === aid);
 
   return (
     <div id="wd-assignments-editor">
@@ -216,5 +205,4 @@ export default function AssignmentEditor() {
         <Button variant="danger">Save</Button>
       </div>
     </div>
-  );
-}
+  );}
