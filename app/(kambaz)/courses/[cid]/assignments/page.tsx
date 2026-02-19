@@ -13,20 +13,9 @@ import ListGroup from "react-bootstrap/esm/ListGroup";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 import * as db from "../../../database";
 
-interface Assignment {
-  _id: string;
-  title: string;
-  course: string;
-  description: string;
-  points: number;
-  dueDate: string;
-  availableFrom: string;
-  availableUntil: string;
-}
-
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments: Assignment[] = db.assignments;
+  const assignments = db.assignments;
 
   return (
     <div id="wd-assignments">
@@ -68,8 +57,8 @@ export default function Assignments() {
 
           <ListGroup className="rounded-0">
             {assignments
-              .filter((assignment) => assignment.course === cid)
-              .map((assignment) => (
+              .filter((assignment: any) => assignment.course === cid)
+              .map((assignment: any) => (
                 <ListGroupItem
                   key={assignment._id}
                   className="wd-lesson p-3 ps-1 d-flex align-items-center"
@@ -101,5 +90,4 @@ export default function Assignments() {
         </ListGroupItem>
       </ListGroup>
     </div>
-  );
-}
+  );}
