@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "A101",
+    "title": "A1 - Environment Setup",
+    "course": "CS1234",
+    "description": "Set up your development environment with Node.js, VS Code, and Git.",
+    "points": 100,
+    "dueDate": "2024-05-13",
+    "availableFrom": "2024-05-06",
+    "availableUntil": "2024-05-20"
+  },
+  {
+    "_id": "A102",
+    "title": "A2 - HTML + CSS",
+    "course": "CS1234",
+    "description": "Create a static webpage using HTML and CSS.",
+    "points": 100,
+    "dueDate": "2024-05-20",
+    "availableFrom": "2024-05-13",
+    "availableUntil": "2024-05-27"
+  },
+  {
+    "_id": "A103",
+    "title": "A3 - JavaScript",
+    "course": "CS1234",
+    "description": "Implement JavaScript functions and data structures.",
+    "points": 100,
+    "dueDate": "2024-05-27",
+    "availableFrom": "2024-05-20",
+    "availableUntil": "2024-06-03"
+  },
+  {
+    "_id": "A201",
+    "title": "A1 - Linear Regression",
+    "course": "FINA4390",
+    "description": "Implement linear regression for stock price prediction.",
+    "points": 100,
+    "dueDate": "2024-05-15",
+    "availableFrom": "2024-05-08",
+    "availableUntil": "2024-05-22"
+  },
+  {
+    "_id": "A202",
+    "title": "A2 - Logistic Regression",
+    "course": "FINA4390",
+    "description": "Build a classification model using logistic regression.",
+    "points": 100,
+    "dueDate": "2024-05-22",
+    "availableFrom": "2024-05-15",
+    "availableUntil": "2024-05-29"
+  },
+  {
+    "_id": "A301",
+    "title": "A1 - Data Preprocessing",
+    "course": "DS4400",
+    "description": "Clean and preprocess a dataset for machine learning.",
+    "points": 100,
+    "dueDate": "2024-05-18",
+    "availableFrom": "2024-05-11",
+    "availableUntil": "2024-05-25"
+  },
+  {
+    "_id": "A302",
+    "title": "A2 - Model Training",
+    "course": "DS4400",
+    "description": "Train and evaluate a machine learning model.",
+    "points": 150,
+    "dueDate": "2024-05-25",
+    "availableFrom": "2024-05-18",
+    "availableUntil": "2024-06-01"
+  },
+  {
+    "_id": "A401",
+    "title": "A1 - Financial Data Analysis",
+    "course": "FINA4350",
+    "description": "Analyze financial data using Python and Pandas.",
+    "points": 100,
+    "dueDate": "2024-05-20",
+    "availableFrom": "2024-05-13",
+    "availableUntil": "2024-05-27"
+  },
+  {
+    "_id": "A501",
+    "title": "A1 - Research Paper",
+    "course": "ENGW3304",
+    "description": "Write a 5-page research paper on a topic of your choice.",
+    "points": 200,
+    "dueDate": "2024-05-25",
+    "availableFrom": "2024-05-11",
+    "availableUntil": "2024-06-01"
+  },
+  {
+    "_id": "A601",
+    "title": "A1 - Cost Analysis",
+    "course": "ACCT2301",
+    "description": "Perform cost-volume-profit analysis for a company.",
+    "points": 100,
+    "dueDate": "2024-05-22",
+    "availableFrom": "2024-05-15",
+    "availableUntil": "2024-05-29"
+  },
+  {
+    "_id": "A701",
+    "title": "A1 - Visualization Project",
+    "course": "DS4200",
+    "description": "Create an interactive data visualization dashboard.",
+    "points": 150,
+    "dueDate": "2024-05-28",
+    "availableFrom": "2024-05-14",
+    "availableUntil": "2024-06-04"
+  }
+]

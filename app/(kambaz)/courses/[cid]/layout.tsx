@@ -1,33 +1,32 @@
 "use client";
-
 import { ReactNode, use } from "react";
+import { FaAlignJustify } from "react-icons/fa6";
 import CourseNavigation from "./Navigation";
-import { FaAlignJustify } from "react-icons/fa";
+import Breadcrumb from "./Breadcrumb";
+import { courses } from "../../database";
 
-export default function CourseLayout({ 
-  children, 
-  params 
-}: Readonly<{ 
+export default function CoursesLayout({
+  children,
+  params,
+}: {
   children: ReactNode;
-  params: Promise<{ cid: string }>; 
-}>) {
+  params: Promise<{ cid: string }>;
+}) {
   const { cid } = use(params);
-  
+  const course = courses.find((course) => course._id === cid);
+
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
         <FaAlignJustify className="me-4 fs-4 mb-1" />
-        Course {cid}
+        <Breadcrumb course={course} />
       </h2>
       <hr />
       <div className="d-flex">
         <div className="d-none d-md-block">
           <CourseNavigation />
         </div>
-        <div className="flex-fill">
-          {children}
-        </div>
+        <div className="flex-fill">{children}</div>
       </div>
     </div>
-  );
-}
+  );}

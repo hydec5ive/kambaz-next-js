@@ -1,0 +1,72 @@
+[
+  {
+    "_id": "123",
+    "username": "iron_man",
+    "password": "stark123",
+    "firstName": "Tony",
+    "lastName": "Stark",
+    "email": "tony@stark.com",
+    "dob": "1972-05-29",
+    "role": "FACULTY",
+    "loginId": "001234561S",
+    "section": "S101",
+    "lastActivity": "2024-10-01",
+    "totalActivity": "10:21:32"
+  },
+  {
+    "_id": "234",
+    "username": "dark_knight",
+    "password": "wayne456",
+    "firstName": "Bruce",
+    "lastName": "Wayne",
+    "email": "bruce@wayne.com",
+    "dob": "1975-03-30",
+    "role": "STUDENT",
+    "loginId": "001234562S",
+    "section": "S101",
+    "lastActivity": "2024-10-02",
+    "totalActivity": "15:32:43"
+  },
+  {
+    "_id": "345",
+    "username": "cap_america",
+    "password": "rogers789",
+    "firstName": "Steve",
+    "lastName": "Rogers",
+    "email": "steve@avengers.com",
+    "dob": "1918-07-04",
+    "role": "STUDENT",
+    "loginId": "001234563S",
+    "section": "S101",
+    "lastActivity": "2024-10-03",
+    "totalActivity": "08:45:12"
+  },
+  {
+    "_id": "456",
+    "username": "black_widow",
+    "password": "natasha000",
+    "firstName": "Natasha",
+    "lastName": "Romanoff",
+    "email": "natasha@shield.com",
+    "dob": "1984-12-03",
+    "role": "TA",
+    "loginId": "001234564S",
+    "section": "S101",
+    "lastActivity": "2024-10-04",
+    "totalActivity": "22:10:28"
+  },
+  {
+    "_id": "567",
+    "username": "thor_odinson",
+    "password": "hammer567",
+    "firstName": "Thor",
+    "lastName": "Odinson",
+    "email": "thor@asgard.com",
+    "dob": "0965-01-01",
+    "role": "STUDENT",
+    "loginId": "001234565S",
+    "section": "S102",
+    "lastActivity": "2024-10-05",
+    "totalActivity": "05:30:15"
+  }
+]

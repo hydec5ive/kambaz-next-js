@@ -1,0 +1,79 @@
+[
+  {
+    "_id": "CS1234",
+    "name": "CS1234 React JS",
+    "number": "CS1234",
+    "startDate": "2024-01-10",
+    "endDate": "2024-05-15",
+    "department": "CS",
+    "credits": 4,
+    "description": "Full Stack software developer",
+    "image": "/images/reactjs.jpeg"
+  },
+  {
+    "_id": "FINA4390",
+    "name": "FINA4390 Machine Learning in Finance",
+    "number": "FINA4390",
+    "startDate": "2024-01-10",
+    "endDate": "2024-05-15",
+    "department": "FINA",
+    "credits": 3,
+    "description": "Machine Learning in Finance",
+    "image": "/images/ml-finance.jpeg"
+  },
+  {
+    "_id": "DS4400",
+    "name": "DS4400 Machine Learning",
+    "number": "DS4400",
+    "startDate": "2024-01-10",
+    "endDate": "2024-05-15",
+    "department": "DS",
+    "credits": 4,
+    "description": "Machine Learning fundamentals",
+    "image": "/images/ml.jpeg"
+  },
+  {
+    "_id": "FINA4350",
+    "name": "FINA4350 Financial Data Modeling",
+    "number": "FINA4350",
+    "startDate": "2024-01-10",
+    "endDate": "2024-05-15",
+    "department": "FINA",
+    "credits": 3,
+    "description": "Financial data analysis and modeling",
+    "image": "/images/finance.jpeg"
+  },
+  {
+    "_id": "ENGW3304",
+    "name": "ENGW3304 Advanced Writing",
+    "number": "ENGW3304",
+    "startDate": "2024-01-10",
+    "endDate": "2024-05-15",
+    "department": "ENGW",
+    "credits": 3,
+    "description": "Advanced writing in the disciplines",
+    "image": "/images/writing.jpeg"
+  },
+  {
+    "_id": "ACCT2301",
+    "name": "ACCT2301 Managerial Accounting",
+    "number": "ACCT2301",
+    "startDate": "2024-01-10",
+    "endDate": "2024-05-15",
+    "department": "ACCT",
+    "credits": 3,
+    "description": "Managerial accounting principles",
+    "image": "/images/accounting.jpeg"
+  },
+  {
+    "_id": "DS4200",
+    "name": "DS4200 Data Visualization",
+    "number": "DS4200",
+    "startDate": "2024-01-10",
+    "endDate": "2024-05-15",
+    "department": "DS",
+    "credits": 3,
+    "description": "Information presentation and visualization",
+    "image": "/images/dataviz.jpeg"
+  }
+]

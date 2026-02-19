@@ -5,55 +5,21 @@ export default function Profile() {
   return (
     <div id="wd-profile-screen">
       <h1>Profile</h1>
-      <FormControl 
-        id="wd-username"
-        placeholder="username"
-        defaultValue="alice"
-        className="mb-2"/>
-
-      <FormControl 
-        id="wd-password"
-        placeholder="password" 
-        type="password"
-        defaultValue="123"
-        className="mb-2"/>
-
-      <FormControl 
-        id="wd-firstname"
-        placeholder="First Name"
-        defaultValue="Alice"
-        className="mb-2"/>
-
-      <FormControl 
-        id="wd-lastname"
-        placeholder="Last Name"
-        defaultValue="Wonderland"
-        className="mb-2"/>
-
-      <FormControl 
-        id="wd-dob"
-        type="date"
-        defaultValue="2000-01-01"
-        className="mb-2"/>
-
-      <FormControl 
-        id="wd-email"
-        type="email"
-        placeholder="Email"
-        defaultValue="alice@wonderland.com"
-        className="mb-2"/>
-        
-      <FormControl 
-        id="wd-role"
-        placeholder="Role"
-        defaultValue="FACULTY"
-        className="mb-2"/>
-
-      <Link 
-        id="wd-signout-btn"
-        href="/account/signin"
-        className="btn btn-danger w-100">
+      <FormControl id="wd-username" placeholder="username" defaultValue="alice" className="mb-2" />
+      <FormControl id="wd-password" placeholder="password" type="password" defaultValue="123" className="mb-2" />
+      <FormControl id="wd-firstname" placeholder="First Name" defaultValue="Alice" className="mb-2" />
+      <FormControl id="wd-lastname" placeholder="Last Name" defaultValue="Wonderland" className="mb-2" />
+      <FormControl id="wd-dob" type="date" defaultValue="2000-01-01" className="mb-2" />
+      <FormControl id="wd-email" type="email" placeholder="Email" defaultValue="alice@wonderland.com" className="mb-2" />
+      <select id="wd-role" className="form-control mb-2" defaultValue="FACULTY">
+        <option value="USER">User</option>
+        <option value="ADMIN">Admin</option>
+        <option value="FACULTY">Faculty</option>
+        <option value="STUDENT">Student</option>
+        <option value="TA">Teaching Assistant</option>
+      </select>
+      <Link id="wd-signout-btn" href="/account/signin" className="btn btn-danger w-100">
         Sign out
-      </Link> 
+      </Link>
     </div>
   );}

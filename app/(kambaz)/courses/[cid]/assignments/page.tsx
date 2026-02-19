@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { BsGripVertical } from "react-icons/bs";
 import { FaSearch, FaPlus, FaCheckCircle, FaCaretDown } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
@@ -9,8 +11,23 @@ import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import Button from "react-bootstrap/esm/Button";
 import ListGroup from "react-bootstrap/esm/ListGroup";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
+import * as db from "../../../database";
+
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+  description: string;
+  points: number;
+  dueDate: string;
+  availableFrom: string;
+  availableUntil: string;
+}
 
 export default function Assignments() {
+  const { cid } = useParams();
+  const assignments: Assignment[] = db.assignments;
+
   return (
     <div id="wd-assignments">
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -18,9 +35,8 @@ export default function Assignments() {
           <InputGroupText className="bg-white">
             <FaSearch className="text-secondary" />
           </InputGroupText>
-          <FormControl placeholder="Search..." id="wd-search-assignment" />
+          <FormControl placeholder="Search for Assignments" id="wd-search-assignment" />
         </InputGroup>
-
         <div>
           <Button variant="secondary" size="lg" className="me-2" id="wd-add-assignment-group">
             <FaPlus className="me-2" />
@@ -38,7 +54,7 @@ export default function Assignments() {
           <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
             <div>
               <BsGripVertical className="me-2 fs-3" />
-              <FaCaretDown className="me-4" />
+              <FaCaretDown className="me-2" />
               <strong>ASSIGNMENTS</strong>
             </div>
             <div>
@@ -51,67 +67,39 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="rounded-0">
-            <ListGroupItem className="wd-lesson p-3 ps-1 d-flex align-items-center">
-              <BsGripVertical className="me-2 fs-3" />
-              <MdOutlineAssignment className="me-3 fs-3 text-success" />
-              <div className="flex-grow-1">
-                <Link href="/courses/1234/assignments/123" className="wd-assignment-link text-dark text-decoration-none">
-                  <strong>A1</strong>
-                </Link>
-                <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
-                  <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 6 at 12:00am |
-                </p>
-                <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
-                  <strong>Due</strong> May 13 at 11:59pm | 100 pts
-                </p>
-              </div>
-              <div>
-                <FaCheckCircle className="text-success me-2" />
-                <IoEllipsisVertical className="fs-4" />
-              </div>
-            </ListGroupItem>
-
-            <ListGroupItem className="wd-lesson p-3 ps-1 d-flex align-items-center">
-              <BsGripVertical className="me-2 fs-3" />
-              <MdOutlineAssignment className="me-3 fs-3 text-success" />
-              <div className="flex-grow-1">
-                <Link href="/courses/1234/assignments/124" className="wd-assignment-link text-dark text-decoration-none">
-                  <strong>A2</strong>
-                </Link>
-                <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
-                  <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 13 at 12:00am |
-                </p>
-                <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
-                  <strong>Due</strong> May 20 at 11:59pm | 100 pts
-                </p>
-              </div>
-              <div>
-                <FaCheckCircle className="text-success me-2" />
-                <IoEllipsisVertical className="fs-4" />
-              </div>
-            </ListGroupItem>
-
-            <ListGroupItem className="wd-lesson p-3 ps-1 d-flex align-items-center">
-              <BsGripVertical className="me-2 fs-3" />
-              <MdOutlineAssignment className="me-3 fs-3 text-success" />
-              <div className="flex-grow-1">
-                <Link href="/courses/1234/assignments/125" className="wd-assignment-link text-dark text-decoration-none">
-                  <strong>A3</strong>
-                </Link>
-                <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
-                  <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 20 at 12:00am |
-                </p>
-                <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
-                  <strong>Due</strong> May 27 at 11:59pm | 100 pts
-                </p>
-              </div>
-              <div>
-                <FaCheckCircle className="text-success me-2" />
-                <IoEllipsisVertical className="fs-4" />
-              </div>
-            </ListGroupItem>
+            {assignments
+              .filter((assignment) => assignment.course === cid)
+              .map((assignment) => (
+                <ListGroupItem
+                  key={assignment._id}
+                  className="wd-lesson p-3 ps-1 d-flex align-items-center"
+                >
+                  <BsGripVertical className="me-2 fs-3" />
+                  <MdOutlineAssignment className="me-3 fs-3 text-success" />
+                  <div className="flex-grow-1">
+                    <Link
+                      href={`/courses/${cid}/assignments/${assignment._id}`}
+                      className="wd-assignment-link text-dark text-decoration-none"
+                    >
+                      <strong>{assignment.title}</strong>
+                    </Link>
+                    <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
+                      <span className="text-danger">Multiple Modules</span> |{" "}
+                      <strong>Not available until</strong> {assignment.availableFrom} |
+                    </p>
+                    <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>
+                      <strong>Due</strong> {assignment.dueDate} | {assignment.points} pts
+                    </p>
+                  </div>
+                  <div>
+                    <FaCheckCircle className="text-success me-2" />
+                    <IoEllipsisVertical className="fs-4" />
+                  </div>
+                </ListGroupItem>
+              ))}
           </ListGroup>
         </ListGroupItem>
       </ListGroup>
     </div>
-  );}
+  );
+}

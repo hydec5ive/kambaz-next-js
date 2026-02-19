@@ -1,38 +1,73 @@
+"use client";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import Button from "react-bootstrap/esm/Button";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
+import * as db from "../../../../database";
+
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+  description: string;
+  points: number;
+  dueDate: string;
+  availableFrom: string;
+  availableUntil: string;
+}
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignments: Assignment[] = db.assignments;
+  const assignment = assignments.find((a) => a._id === aid);
+
   return (
     <div id="wd-assignments-editor">
       <div className="mb-3">
-        <label htmlFor="wd-name" className="form-label">Assignment Name</label>
-        <input id="wd-name" className="form-control" defaultValue="A1 - ENV + HTML" />
+        <label htmlFor="wd-name" className="form-label">
+          Assignment Name
+        </label>
+        <input
+          id="wd-name"
+          className="form-control"
+          defaultValue={assignment?.title || "New Assignment"}
+        />
       </div>
 
       <div className="mb-3">
-        <label htmlFor="wd-description" className="form-label">Description</label>
-        <textarea 
-          id="wd-description" 
-          className="form-control" 
-          rows={5} 
-          defaultValue="The assignment is available online..."
+        <label htmlFor="wd-description" className="form-label">
+          Description
+        </label>
+        <textarea
+          id="wd-description"
+          className="form-control"
+          rows={5}
+          defaultValue={assignment?.description || "Assignment description..."}
         />
-
       </div>
+
       <Row className="mb-3">
         <Col sm={3} className="text-end">
-          <label htmlFor="wd-points" className="col-form-label">Points</label>
+          <label htmlFor="wd-points" className="col-form-label">
+            Points
+          </label>
         </Col>
         <Col sm={9}>
-          <input id="wd-points" className="form-control" type="number" defaultValue={100} />
+          <input
+            id="wd-points"
+            className="form-control"
+            type="number"
+            defaultValue={assignment?.points || 100}
+          />
         </Col>
       </Row>
 
       <Row className="mb-3">
         <Col sm={3} className="text-end">
-          <label htmlFor="wd-group" className="col-form-label">Assignment Group</label>
+          <label htmlFor="wd-group" className="col-form-label">
+            Assignment Group
+          </label>
         </Col>
         <Col sm={9}>
           <select id="wd-group" className="form-control" defaultValue="ASSIGNMENTS">
@@ -45,7 +80,9 @@ export default function AssignmentEditor() {
 
       <Row className="mb-3">
         <Col sm={3} className="text-end">
-          <label htmlFor="wd-display-grade-as" className="col-form-label">Display Grade as</label>
+          <label htmlFor="wd-display-grade-as" className="col-form-label">
+            Display Grade as
+          </label>
         </Col>
         <Col sm={9}>
           <select id="wd-display-grade-as" className="form-control" defaultValue="PERCENTAGE">
@@ -58,7 +95,9 @@ export default function AssignmentEditor() {
 
       <Row className="mb-3">
         <Col sm={3} className="text-end">
-          <label htmlFor="wd-submission-type" className="col-form-label">Submission Type</label>
+          <label htmlFor="wd-submission-type" className="col-form-label">
+            Submission Type
+          </label>
         </Col>
         <Col sm={9}>
           <div className="border rounded p-3">
@@ -69,26 +108,41 @@ export default function AssignmentEditor() {
             </select>
 
             <label className="fw-bold mb-2">Online Entry Options</label>
-            
+
             <div className="form-check">
               <input type="checkbox" id="wd-text-entry" className="form-check-input" />
-              <label htmlFor="wd-text-entry" className="form-check-label">Text Entry</label>
+              <label htmlFor="wd-text-entry" className="form-check-label">
+                Text Entry
+              </label>
             </div>
             <div className="form-check">
-              <input type="checkbox" id="wd-website-url" className="form-check-input" />
-              <label htmlFor="wd-website-url" className="form-check-label">Website URL</label>
+              <input
+                type="checkbox"
+                id="wd-website-url"
+                className="form-check-input"
+                defaultChecked
+              />
+              <label htmlFor="wd-website-url" className="form-check-label">
+                Website URL
+              </label>
             </div>
             <div className="form-check">
               <input type="checkbox" id="wd-media-recordings" className="form-check-input" />
-              <label htmlFor="wd-media-recordings" className="form-check-label">Media Recordings</label>
+              <label htmlFor="wd-media-recordings" className="form-check-label">
+                Media Recordings
+              </label>
             </div>
             <div className="form-check">
               <input type="checkbox" id="wd-student-annotation" className="form-check-input" />
-              <label htmlFor="wd-student-annotation" className="form-check-label">Student Annotation</label>
+              <label htmlFor="wd-student-annotation" className="form-check-label">
+                Student Annotation
+              </label>
             </div>
             <div className="form-check">
               <input type="checkbox" id="wd-file-upload" className="form-check-input" />
-              <label htmlFor="wd-file-upload" className="form-check-label">File Uploads</label>
+              <label htmlFor="wd-file-upload" className="form-check-label">
+                File Uploads
+              </label>
             </div>
           </div>
         </Col>
@@ -101,38 +155,66 @@ export default function AssignmentEditor() {
         <Col sm={9}>
           <div className="border rounded p-3">
             <div className="mb-3">
-              <label htmlFor="wd-assign-to" className="fw-bold">Assign to</label>
+              <label htmlFor="wd-assign-to" className="fw-bold">
+                Assign to
+              </label>
               <input id="wd-assign-to" className="form-control" defaultValue="Everyone" />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="wd-due-date" className="fw-bold">Due</label>
-              <input type="date" id="wd-due-date" className="form-control" defaultValue="2024-05-13" />
+              <label htmlFor="wd-due-date" className="fw-bold">
+                Due
+              </label>
+              <input
+                type="date"
+                id="wd-due-date"
+                className="form-control"
+                defaultValue={assignment?.dueDate || "2024-05-13"}
+              />
             </div>
 
             <Row>
               <Col sm={6}>
                 <div className="mb-3">
-                  <label htmlFor="wd-available-from" className="fw-bold">Available from</label>
-                  <input type="date" id="wd-available-from" className="form-control" defaultValue="2024-05-06" />
+                  <label htmlFor="wd-available-from" className="fw-bold">
+                    Available from
+                  </label>
+                  <input
+                    type="date"
+                    id="wd-available-from"
+                    className="form-control"
+                    defaultValue={assignment?.availableFrom || "2024-05-06"}
+                  />
                 </div>
               </Col>
               <Col sm={6}>
                 <div className="mb-3">
-                  <label htmlFor="wd-available-until" className="fw-bold">Until</label>
-                  <input type="date" id="wd-available-until" className="form-control" defaultValue="2024-05-20" />
+                  <label htmlFor="wd-available-until" className="fw-bold">
+                    Until
+                  </label>
+                  <input
+                    type="date"
+                    id="wd-available-until"
+                    className="form-control"
+                    defaultValue={assignment?.availableUntil || "2024-05-20"}
+                  />
                 </div>
               </Col>
             </Row>
           </div>
         </Col>
       </Row>
+
       <hr />
+
       <div className="d-flex justify-content-end">
-        <Link href="/courses/1234/assignments">
-          <Button variant="secondary" className="me-2">Cancel</Button>
+        <Link href={`/courses/${cid}/assignments`}>
+          <Button variant="secondary" className="me-2">
+            Cancel
+          </Button>
         </Link>
         <Button variant="danger">Save</Button>
       </div>
     </div>
-  );}
+  );
+}
