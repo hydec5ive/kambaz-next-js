@@ -5,35 +5,27 @@ import { usePathname } from "next/navigation";
 export default function TOC() {
   const pathname = usePathname();
   return (
-    <Nav variant="pills">
+    <Nav variant="pills" className="mb-3">
       <NavItem>
         <NavLink href="/labs" as={Link} className={`nav-link ${pathname.endsWith("labs") ? "active" : ""}`}>
-          Labs </NavLink> 
-          </NavItem>
+          Labs </NavLink> </NavItem>
       <NavItem>
-        <NavLink href="/labs/lab1" as={Link} className={`nav-link ${pathname.endsWith("lab1") ? "active" : ""}`}>
-          Lab 1 </NavLink> 
-          </NavItem>
+        <NavLink href="/labs/lab1" as={Link} className={`nav-link ${pathname.includes("lab1") ? "active" : ""}`}>
+          Lab 1 </NavLink> </NavItem>
       <NavItem>
-        <NavLink href="/labs/lab2" as={Link} className={`nav-link ${pathname.endsWith("lab2") ? "active" : ""}`}>
-          Lab 2 </NavLink> 
-          </NavItem>
+        <NavLink href="/labs/lab2" as={Link} className={`nav-link ${pathname.includes("lab2") ? "active" : ""}`}>
+          Lab 2 </NavLink> </NavItem>
       <NavItem>
-        <NavLink href="/labs/lab3" as={Link} className={`nav-link ${pathname.endsWith("lab3") ? "active" : ""}`}>
-          Lab 3 </NavLink> 
-          </NavItem>
+        <NavLink href="/labs/lab3" as={Link} className={`nav-link ${pathname.includes("lab3") ? "active" : ""}`}>
+          Lab 3 </NavLink> </NavItem>
       <NavItem>
-        <NavLink href="/labs/lab4" as={Link} className={`nav-link ${pathname.endsWith("lab4") ? "active" : ""}`}>
-          Lab 4 </NavLink> 
-          </NavItem>
+        <NavLink href="/labs/lab4" as={Link} className={`nav-link ${pathname.includes("lab4") ? "active" : ""}`}>
+          Lab 4 </NavLink> </NavItem>
       <NavItem>
         <NavLink href="/dashboard" as={Link}>
-          Kambaz </NavLink> 
-          </NavItem>
+          Kambaz </NavLink> </NavItem>
       <NavItem>
         <NavLink id="wd-github" href="https://github.com/hydec5ive/kambaz-next-js">
-          My GitHub </NavLink> 
-          </NavItem>
+          My GitHub </NavLink> </NavItem>
     </Nav>
-  );
-}
+);}
