@@ -1,34 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { modules } from "../../../database";
-import { v4 as uuidv4 } from "uuid";
 const initialState = {
-  modules: modules,
+  modules: [] as any[],
 };
 const modulesSlice = createSlice({
   name: "modules",
   initialState,
   reducers: {
+    setModules: (state, action) => {
+      state.modules = action.payload;
+    },
     addModule: (state, { payload: module }) => {
-      const newModule: any = {
-        _id: uuidv4(),
+      const newModule = {
+        _id: new Date().getTime().toString(),
         lessons: [],
-        name: module.name,
-        course: module.course,
+        ...module,
       };
-      state.modules = [...state.modules, newModule] as any;
+      state.modules = [...state.modules, newModule];
     },
     deleteModule: (state, { payload: moduleId }) => {
       state.modules = state.modules.filter((m: any) => m._id !== moduleId);
     },
     updateModule: (state, { payload: module }) => {
-      state.modules = state.modules.map((m: any) => m._id === module._id ? module : m) as any;
+      state.modules = state.modules.map((m: any) =>
+        m._id === module._id ? module : m
+      );
     },
     editModule: (state, { payload: moduleId }) => {
       state.modules = state.modules.map((m: any) =>
         m._id === moduleId ? { ...m, editing: true } : m
-      ) as any;
+      );
     },
   },
 });
-export const { addModule, deleteModule, updateModule, editModule } = modulesSlice.actions;
+export const { setModules, addModule, deleteModule, updateModule, editModule } =
+  modulesSlice.actions;
 export default modulesSlice.reducer;
