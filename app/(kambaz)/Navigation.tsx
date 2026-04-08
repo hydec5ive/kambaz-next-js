@@ -1,58 +1,29 @@
 "use client";
-import { AiOutlineDashboard } from "react-icons/ai";
-import { IoCalendarOutline } from "react-icons/io5";
-import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
-import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
-import ListGroup from "react-bootstrap/esm/ListGroup";
-import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
-
-export default function KambazNavigation() {
+import { usePathname } from "next/navigation";
+import { Nav, NavItem, NavLink } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
+export default function AccountNavigation() {
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
   const pathname = usePathname();
-  const links = [
-    { label: "Dashboard", path: "/dashboard", icon: AiOutlineDashboard },
-    { label: "Courses", path: "/dashboard", icon: LiaBookSolid },
-    { label: "Calendar", path: "/calendar", icon: IoCalendarOutline },
-    { label: "Inbox", path: "/inbox", icon: FaInbox },
-    { label: "Labs", path: "/labs", icon: LiaCogSolid },
-  ];
-
   return (
-    <ListGroup
-      id="wd-kambaz-navigation"
-      style={{ width: 120 }}
-      className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2">
-      <ListGroupItem
-        id="wd-neu-link"
-        target="_blank"
-        href="https://www.northeastern.edu/"
-        action
-        className="bg-black border-0 text-center">
-        <img src="/images/NEU.png" width="75px" alt="Northeastern University" />
-      </ListGroupItem>
-      <ListGroupItem
-        as={Link}
-        href="/account"
-        className={`text-center border-0 ${
-          pathname.includes("account") ? "bg-white text-danger" : "bg-black text-white" }`}>
-        <FaRegCircleUser
-          className={`fs-1 ${pathname.includes("account") ? "text-danger" : "text-white"}`}/>
-        <br />
-        Account
-      </ListGroupItem>
+    <Nav variant="pills">
       {links.map((link) => (
-        <ListGroupItem
-          key={link.path + link.label}
-          as={Link}
-          href={link.path}
-          className={`bg-black text-center border-0 ${
-            pathname.includes(link.label.toLowerCase()) ? "text-danger bg-white" : "text-white bg-black"}`}>
-          {link.icon({ className: "fs-1 text-danger" })}
-          <br />
-          {link.label}
-        </ListGroupItem>
+        <NavItem key={link}>
+          <NavLink as={Link} href={`/account/${link.toLowerCase()}`} active={pathname.includes(link.toLowerCase())}>
+            {link}
+          </NavLink>
+        </NavItem>
       ))}
-    </ListGroup>
+      {currentUser && (currentUser as any).role === "ADMIN" && (
+        <NavItem>
+          <NavLink as={Link} href="/account/users" active={pathname.includes("users")}>
+            Users
+          </NavLink>
+        </NavItem>
+      )}
+    </Nav>
   );
 }
