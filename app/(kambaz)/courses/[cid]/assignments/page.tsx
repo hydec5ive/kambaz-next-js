@@ -28,7 +28,7 @@ export default function Assignments() {
   const onDeleteAssignment = async (assignmentId: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this assignment?");
     if (!confirmDelete) return;
-    await client.deleteAssignment(assignmentId);
+    await client.deleteAssignment(cid as string, assignmentId);
     dispatch(setAssignments(assignments.filter((a: any) => a._id !== assignmentId)));
   };
   return (

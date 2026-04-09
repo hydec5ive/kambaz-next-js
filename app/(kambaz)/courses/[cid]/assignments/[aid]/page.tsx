@@ -21,17 +21,17 @@ export default function AssignmentEditor() {
   useEffect(() => {
     const fetchAssignment = async () => {
       if (aid !== "new") {
-        const assignmentData = await client.findAssignmentById(aid as string);
+        const assignmentData = await client.findAssignmentById(cid as string, aid as string);
         setAssignment(assignmentData);
       }
     };
     fetchAssignment();
-  }, [aid]);
+  }, [cid, aid]);
   const handleSave = async () => {
     if (aid === "new") {
       await client.createAssignmentForCourse(cid as string, assignment);
     } else {
-      await client.updateAssignment(assignment);
+      await client.updateAssignment(cid as string, assignment);
     }
     router.push(`/courses/${cid}/assignments`);
   };
