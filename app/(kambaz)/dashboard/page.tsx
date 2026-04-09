@@ -18,7 +18,7 @@ export default function Dashboard() {
     number: "New Number",
     startDate: "2023-09-10",
     endDate: "2023-12-15",
-    image: "/images/reactjs.jpg",
+    image: "/images/reactjs.jpeg",
     description: "New Description",
   });
   const [showAllCourses, setShowAllCourses] = useState(false);
@@ -118,7 +118,7 @@ export default function Dashboard() {
           <Col key={crs._id} className="wd-dashboard-course" style={{ width: "300px" }}>
             <Card>
               <Link href={`/courses/${crs._id}/home`} className="wd-dashboard-course-link text-decoration-none text-dark">
-                <CardImg variant="top" src={crs.image || "/images/reactjs.jpg"} width="100%" height={160} />
+                <CardImg variant="top" src={crs.image || "/images/reactjs.jpeg"} width="100%" height={160} />
                 <CardBody>
                   <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">{crs.name}</CardTitle>
                   <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
