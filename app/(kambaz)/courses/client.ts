@@ -78,3 +78,9 @@ export const unenrollUserFromCourse = async (userId: string, courseId: string) =
   const { data } = await axiosWithCredentials.delete(`${REMOTE_SERVER}/api/users/${userId}/courses/${courseId}/enrollments`);
   return data;
 };
+
+// Find users enrolled in a course
+export const findUsersForCourse = async (courseId: string) => {
+  const { data } = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/users`);
+  return data;
+};
