@@ -1,14 +1,9 @@
-import Modules from "../modules/page";
-import CourseStatus from "./Status";
+"use client";
 
 export default function Home() {
   return (
-    <div className="d-flex" id="wd-home">
-      <div className="flex-fill me-3">
-        <Modules />
-      </div>
-      <div className="d-none d-lg-block">
-        <CourseStatus />
-      </div>
+    <div>
+      <h1>Home Page Test</h1>
     </div>
-  );}
+  );
+}

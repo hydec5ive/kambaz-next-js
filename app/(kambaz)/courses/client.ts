@@ -84,3 +84,29 @@ export const findUsersForCourse = async (courseId: string) => {
   const { data } = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/users`);
   return data;
 };
+
+// Quizzes
+export const findQuizzesForCourse = async (courseId: string) => {
+  const { data } = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/quizzes`);
+  return data;
+};
+export const findQuizById = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.get(`${REMOTE_SERVER}/api/quizzes/${quizId}`);
+  return data;
+};
+export const createQuiz = async (courseId: string, quiz: any) => {
+  const { data } = await axiosWithCredentials.post(`${COURSES_API}/${courseId}/quizzes`, quiz);
+  return data;
+};
+export const updateQuiz = async (quizId: string, quiz: any) => {
+  const { data } = await axiosWithCredentials.put(`${REMOTE_SERVER}/api/quizzes/${quizId}`, quiz);
+  return data;
+};
+export const deleteQuiz = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.delete(`${REMOTE_SERVER}/api/quizzes/${quizId}`);
+  return data;
+};
+export const publishQuiz = async (quizId: string, published: boolean) => {
+  const { data } = await axiosWithCredentials.put(`${REMOTE_SERVER}/api/quizzes/${quizId}/publish`, { published });
+  return data;
+};
