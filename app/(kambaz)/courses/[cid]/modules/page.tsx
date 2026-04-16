@@ -10,6 +10,7 @@ import ModulesControls from "./ModulesControls";
 import ModuleControlButtons from "./ModuleControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
 import * as client from "../../client";
+
 export default function Modules() {
   const { cid } = useParams();
   const [moduleName, setModuleName] = useState("");
@@ -17,13 +18,16 @@ export default function Modules() {
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   const dispatch = useDispatch();
   const isFaculty = currentUser && (currentUser as any).role === "FACULTY";
+
   const fetchModules = useCallback(async () => {
     const modules = await client.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
   }, [cid, dispatch]);
+
   useEffect(() => {
     fetchModules();
   }, [fetchModules]);
+
   const onCreateModule = async () => {
     if (!cid) return;
     const newModule = { name: moduleName };
@@ -31,15 +35,18 @@ export default function Modules() {
     dispatch(setModules([...modules, createdModule]));
     setModuleName("");
   };
+
   const onRemoveModule = async (moduleId: string) => {
     await client.deleteModule(cid as string, moduleId);
     dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
   };
+
   const onUpdateModule = async (module: any) => {
     await client.updateModule(cid as string, module);
     const newModules = modules.map((m: any) => (m._id === module._id ? module : m));
     dispatch(setModules(newModules));
   };
+
   return (
     <div id="wd-modules">
       {isFaculty && (

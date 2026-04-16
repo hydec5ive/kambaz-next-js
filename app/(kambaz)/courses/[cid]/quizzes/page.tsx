@@ -13,6 +13,7 @@ import * as client from "../../client";
 export default function Quizzes() {
   const { cid } = useParams();
   const [quizzes, setQuizzes] = useState<any[]>([]);
+  const [attempts, setAttempts] = useState<any>({});
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   const isFaculty = currentUser && (currentUser as any).role === "FACULTY";
 
@@ -20,9 +21,26 @@ export default function Quizzes() {
     const fetchQuizzes = async () => {
       const quizzesData = await client.findQuizzesForCourse(cid as string);
       setQuizzes(quizzesData);
+
+      // Fetch attempts for each quiz (for students)
+      if (currentUser && !isFaculty) {
+        const attemptsData: any = {};
+        for (const quiz of quizzesData) {
+          try {
+            const quizAttempts = await client.getQuizAttempts(quiz._id, (currentUser as any)._id);
+            if (quizAttempts && quizAttempts.length > 0) {
+              // Get the last attempt
+              attemptsData[quiz._id] = quizAttempts[quizAttempts.length - 1];
+            }
+          } catch (error) {
+            console.log("No attempts for quiz", quiz._id);
+          }
+        }
+        setAttempts(attemptsData);
+      }
     };
     fetchQuizzes();
-  }, [cid]);
+  }, [cid, currentUser, isFaculty]);
 
   const getAvailabilityStatus = (quiz: any) => {
     const now = new Date();
@@ -111,6 +129,11 @@ export default function Quizzes() {
                     <small className="text-muted">
                       {getAvailabilityStatus(quiz)} | Due: {quiz.dueDate || "N/A"} |{" "}
                       {calculateTotalPoints(quiz)} pts | {quiz.questions?.length || 0} Questions
+                      {!isFaculty && attempts[quiz._id] && (
+                        <span className="ms-2 text-primary fw-bold">
+                          | Score: {attempts[quiz._id].score}/{calculateTotalPoints(quiz)}
+                        </span>
+                      )}
                     </small>
                   </div>
                   {isFaculty && (

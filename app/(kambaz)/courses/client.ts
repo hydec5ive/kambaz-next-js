@@ -110,3 +110,13 @@ export const publishQuiz = async (quizId: string, published: boolean) => {
   const { data } = await axiosWithCredentials.put(`${REMOTE_SERVER}/api/quizzes/${quizId}/publish`, { published });
   return data;
 };
+
+// Quiz Attempts
+export const getQuizAttempts = async (quizId: string, userId: string) => {
+  const { data } = await axiosWithCredentials.get(`${REMOTE_SERVER}/api/quizzes/${quizId}/attempts/${userId}`);
+  return data;
+};
+export const submitQuizAttempt = async (quizId: string, attempt: any) => {
+  const { data } = await axiosWithCredentials.post(`${REMOTE_SERVER}/api/quizzes/${quizId}/attempts`, attempt);
+  return data;
+};
