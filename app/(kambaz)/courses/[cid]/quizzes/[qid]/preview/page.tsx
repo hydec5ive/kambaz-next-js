@@ -1,18 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Button, Form, Card, Alert } from "react-bootstrap";
 import Link from "next/link";
 import * as client from "../../../../client";
 
 export default function QuizPreview() {
   const { cid, qid } = useParams();
-  const router = useRouter();
   const [quiz, setQuiz] = useState<any>(null);
   const [answers, setAnswers] = useState<any>({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [results, setResults] = useState<any>({});
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -47,7 +47,6 @@ export default function QuizPreview() {
       if (isCorrect) {
         totalScore += question.points;
       }
-
       questionResults[question._id] = isCorrect;
     });
 
@@ -59,6 +58,7 @@ export default function QuizPreview() {
   if (!quiz) return <div>Loading...</div>;
 
   const totalPoints = quiz.questions.reduce((sum: number, q: any) => sum + q.points, 0);
+  const currentQuestion = quiz.questions[currentQuestionIndex];
 
   return (
     <div id="wd-quiz-preview">
@@ -70,7 +70,7 @@ export default function QuizPreview() {
       </div>
 
       <Alert variant="info">
-        This is a preview of how students will see the quiz. Your answers are not saved.
+        This is a preview. Your answers are not saved.
       </Alert>
 
       {submitted && (
@@ -79,78 +79,91 @@ export default function QuizPreview() {
         </Alert>
       )}
 
+      {/* Question Navigation */}
+      <div className="mb-3">
+        <strong>Questions: </strong>
+        {quiz.questions.map((q: any, index: number) => (
+          <Button
+            key={q._id}
+            variant={currentQuestionIndex === index ? "primary" : submitted ? (results[q._id] ? "success" : "danger") : "outline-secondary"}
+            size="sm"
+            className="me-1"
+            onClick={() => setCurrentQuestionIndex(index)}
+          >
+            {index + 1}
+          </Button>
+        ))}
+      </div>
+
       <hr />
 
-      {quiz.questions.map((question: any, index: number) => (
-        <Card key={question._id} className={`mb-3 ${submitted ? (results[question._id] ? "border-success" : "border-danger") : ""}`}>
-          <Card.Header className="d-flex justify-content-between">
-            <span>Question {index + 1}: {question.title}</span>
-            <span>{question.points} pts</span>
+      {/* Current Question */}
+      {currentQuestion && (
+        <Card className={`mb-3 ${submitted ? (results[currentQuestion._id] ? "border-success" : "border-danger") : ""}`}>
+          <Card.Header>
+            <span>Question {currentQuestionIndex + 1}: {currentQuestion.title}</span>
+            <span className="float-end">{currentQuestion.points} pts</span>
           </Card.Header>
           <Card.Body>
-            <p>{question.question}</p>
+            <p>{currentQuestion.question}</p>
 
-            {question.type === "MULTIPLE_CHOICE" && (
-              <Form>
-                {question.answers.map((answer: any) => (
-                  <Form.Check
-                    key={answer._id}
-                    type="radio"
-                    id={`${question._id}-${answer._id}`}
-                    name={question._id}
-                    label={answer.text}
-                    checked={answers[question._id] === answer._id}
-                    onChange={() => handleAnswerChange(question._id, answer._id)}
-                    disabled={submitted}
-                    className={submitted && answer.isCorrect ? "text-success fw-bold" : ""}
-                  />
-                ))}
-              </Form>
-            )}
+            {currentQuestion.type === "MULTIPLE_CHOICE" && currentQuestion.answers.map((answer: any) => (
+              <Form.Check
+                key={answer._id}
+                type="radio"
+                id={`${currentQuestion._id}-${answer._id}`}
+                name={currentQuestion._id}
+                label={answer.text}
+                checked={answers[currentQuestion._id] === answer._id}
+                onChange={() => handleAnswerChange(currentQuestion._id, answer._id)}
+                disabled={submitted}
+                className={submitted && answer.isCorrect ? "text-success fw-bold" : ""}
+              />
+            ))}
 
-            {question.type === "TRUE_FALSE" && (
-              <Form>
+            {currentQuestion.type === "TRUE_FALSE" && (
+              <>
                 <Form.Check
                   type="radio"
-                  id={`${question._id}-true`}
-                  name={question._id}
+                  id={`${currentQuestion._id}-true`}
+                  name={currentQuestion._id}
                   label="True"
-                  checked={answers[question._id] === "true"}
-                  onChange={() => handleAnswerChange(question._id, "true")}
+                  checked={answers[currentQuestion._id] === "true"}
+                  onChange={() => handleAnswerChange(currentQuestion._id, "true")}
                   disabled={submitted}
-                  className={submitted && question.correctAnswer === "true" ? "text-success fw-bold" : ""}
+                  className={submitted && currentQuestion.correctAnswer === "true" ? "text-success fw-bold" : ""}
                 />
                 <Form.Check
                   type="radio"
-                  id={`${question._id}-false`}
-                  name={question._id}
+                  id={`${currentQuestion._id}-false`}
+                  name={currentQuestion._id}
                   label="False"
-                  checked={answers[question._id] === "false"}
-                  onChange={() => handleAnswerChange(question._id, "false")}
+                  checked={answers[currentQuestion._id] === "false"}
+                  onChange={() => handleAnswerChange(currentQuestion._id, "false")}
                   disabled={submitted}
-                  className={submitted && question.correctAnswer === "false" ? "text-success fw-bold" : ""}
+                  className={submitted && currentQuestion.correctAnswer === "false" ? "text-success fw-bold" : ""}
                 />
-              </Form>
+              </>
             )}
 
-            {question.type === "FILL_BLANK" && (
-              <Form>
+            {currentQuestion.type === "FILL_BLANK" && (
+              <>
                 <Form.Control
                   type="text"
                   placeholder="Your answer"
-                  value={answers[question._id] || ""}
-                  onChange={(e) => handleAnswerChange(question._id, e.target.value)}
+                  value={answers[currentQuestion._id] || ""}
+                  onChange={(e) => handleAnswerChange(currentQuestion._id, e.target.value)}
                   disabled={submitted}
                 />
                 {submitted && (
-                  <small className="text-success">Correct answer(s): {question.correctAnswer}</small>
+                  <small className="text-success">Correct: {currentQuestion.correctAnswer}</small>
                 )}
-              </Form>
+              </>
             )}
 
             {submitted && (
               <div className="mt-2">
-                {results[question._id] ? (
+                {results[currentQuestion._id] ? (
                   <span className="text-success">✓ Correct</span>
                 ) : (
                   <span className="text-danger">✗ Incorrect</span>
@@ -159,18 +172,36 @@ export default function QuizPreview() {
             )}
           </Card.Body>
         </Card>
-      ))}
+      )}
 
-      <div className="d-flex justify-content-end gap-2">
-        {!submitted ? (
-          <Button variant="danger" onClick={calculateScore}>
-            Submit Quiz
+      {/* Navigation Buttons */}
+      <div className="d-flex justify-content-between">
+        <div>
+          <Button
+            variant="outline-secondary"
+            onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
+            disabled={currentQuestionIndex === 0}
+          >
+            Previous
           </Button>
-        ) : (
-          <Button variant="primary" onClick={() => { setSubmitted(false); setAnswers({}); }}>
-            Try Again
+          <Button
+            variant="outline-secondary"
+            className="ms-2"
+            onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
+            disabled={currentQuestionIndex === quiz.questions.length - 1}
+          >
+            Next
           </Button>
-        )}
+        </div>
+        <div>
+          {!submitted ? (
+            <Button variant="danger" onClick={calculateScore}>Submit Quiz</Button>
+          ) : (
+            <Button variant="primary" onClick={() => { setSubmitted(false); setAnswers({}); setCurrentQuestionIndex(0); }}>
+              Try Again
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

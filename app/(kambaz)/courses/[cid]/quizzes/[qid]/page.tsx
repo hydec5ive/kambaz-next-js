@@ -23,6 +23,11 @@ export default function QuizDetails() {
     fetchQuiz();
   }, [qid]);
 
+  const handlePublishToggle = async () => {
+    await client.publishQuiz(qid as string, !quiz.published);
+    setQuiz({ ...quiz, published: !quiz.published });
+  };
+
   if (!quiz) return <div>Loading...</div>;
 
   const calculateTotalPoints = () => {
@@ -44,6 +49,12 @@ export default function QuizDetails() {
                 Edit
               </Button>
             </Link>
+            <Button
+              variant={quiz.published ? "warning" : "success"}
+              onClick={handlePublishToggle}
+            >
+              {quiz.published ? "Unpublish" : "Publish"}
+            </Button>
           </>
         )}
         {!isFaculty && quiz.published && (

@@ -22,14 +22,12 @@ export default function Quizzes() {
       const quizzesData = await client.findQuizzesForCourse(cid as string);
       setQuizzes(quizzesData);
 
-      // Fetch attempts for each quiz (for students)
       if (currentUser && !isFaculty) {
         const attemptsData: any = {};
         for (const quiz of quizzesData) {
           try {
             const quizAttempts = await client.getQuizAttempts(quiz._id, (currentUser as any)._id);
             if (quizAttempts && quizAttempts.length > 0) {
-              // Get the last attempt
               attemptsData[quiz._id] = quizAttempts[quizAttempts.length - 1];
             }
           } catch (error) {
@@ -91,7 +89,13 @@ export default function Quizzes() {
     return quiz.questions.reduce((total: number, q: any) => total + (q.points || 0), 0);
   };
 
-  const displayedQuizzes = isFaculty ? quizzes : quizzes.filter((q) => q.published);
+  // Sort quizzes by available date
+  const sortedQuizzes = [...quizzes].sort((a, b) => {
+    const dateA = a.availableDate ? new Date(a.availableDate).getTime() : 0;
+    const dateB = b.availableDate ? new Date(b.availableDate).getTime() : 0;
+    return dateA - dateB;
+  });
+  const displayedQuizzes = isFaculty ? sortedQuizzes : sortedQuizzes.filter((q) => q.published);
 
   return (
     <div id="wd-quizzes">
