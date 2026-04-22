@@ -20,6 +20,7 @@ export default function TakeQuiz() {
   const [accessGranted, setAccessGranted] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [timerStarted, setTimerStarted] = useState(false);
+  const [timeExpired, setTimeExpired] = useState(false);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -28,7 +29,7 @@ export default function TakeQuiz() {
       if (!quizData.accessCode) {
         setAccessGranted(true);
       }
-      if (quizData.timeLimit) {
+      if (quizData.hasTimeLimit && quizData.timeLimit) {
         setTimeRemaining(quizData.timeLimit * 60);
       }
     };
@@ -50,12 +51,15 @@ export default function TakeQuiz() {
 
   // Timer
   useEffect(() => {
-    if (!timerStarted || submitted || timeRemaining <= 0) return;
+    if (!quiz?.hasTimeLimit || !timerStarted || submitted || timeRemaining <= 0) return;
     const timer = setTimeout(() => {
+      if (timeRemaining <= 1) {
+        setTimeExpired(true);
+      }
       setTimeRemaining(timeRemaining - 1);
     }, 1000);
     return () => clearTimeout(timer);
-  }, [timeRemaining, timerStarted, submitted]);
+  }, [timeRemaining, timerStarted, submitted, quiz?.hasTimeLimit]);
 
   const startQuiz = () => {
     setTimerStarted(true);
@@ -174,7 +178,11 @@ export default function TakeQuiz() {
         <h2>{quiz.title}</h2>
         <Card className="mb-3">
           <Card.Body>
-            <p><strong>Time Limit:</strong> {quiz.timeLimit} minutes</p>
+            {quiz.hasTimeLimit ? (
+              <p><strong>Time Limit:</strong> {quiz.timeLimit} minutes</p>
+            ) : (
+              <p><strong>Time Limit:</strong> No time limit</p>
+            )}
             <p><strong>Questions:</strong> {quiz.questions?.length || 0}</p>
             <p><strong>Total Points:</strong> {totalPoints}</p>
             {previousAttempts.length > 0 && (
@@ -187,8 +195,8 @@ export default function TakeQuiz() {
     );
   }
 
-  // Time expired
-  if (timeRemaining <= 0 && !submitted && timerStarted) {
+  // Time expired - auto submit
+  if (timeExpired && !submitted) {
     handleSubmit();
   }
 
@@ -196,7 +204,7 @@ export default function TakeQuiz() {
     <div>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>{quiz.title}</h2>
-        {!submitted && quiz.timeLimit > 0 && (
+        {!submitted && quiz.hasTimeLimit && (
           <Alert variant={timeRemaining < 60 ? "danger" : "info"} className="mb-0 py-2 px-3">
             Time: {formatTime(timeRemaining)}
           </Alert>

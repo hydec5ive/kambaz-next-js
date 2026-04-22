@@ -14,6 +14,7 @@ export default function QuizEditor() {
     quizType: "Graded Quiz",
     assignmentGroup: "Quizzes",
     shuffleAnswers: true,
+    hasTimeLimit: true,
     timeLimit: 20,
     multipleAttempts: false,
     howManyAttempts: 1,
@@ -32,7 +33,12 @@ export default function QuizEditor() {
   useEffect(() => {
     const fetchQuiz = async () => {
       const quizData = await client.findQuizById(qid as string);
-      if (quizData) setQuiz(quizData);
+      if (quizData) {
+        setQuiz({
+          ...quizData,
+          hasTimeLimit: quizData.hasTimeLimit !== false,
+        });
+      }
     };
     fetchQuiz();
   }, [qid]);
@@ -49,6 +55,11 @@ export default function QuizEditor() {
 
   const handleCancel = () => {
     router.push(`/courses/${cid}/quizzes`);
+  };
+
+  const calculateTotalPoints = () => {
+    if (!quiz.questions || quiz.questions.length === 0) return 0;
+    return quiz.questions.reduce((total: number, q: any) => total + (q.points || 0), 0);
   };
 
   return (
@@ -109,12 +120,15 @@ export default function QuizEditor() {
             <Row className="mb-3">
               <Col md={6}>
                 <Form.Group>
-                  <Form.Label>Time Limit (Minutes)</Form.Label>
+                  <Form.Label>Points</Form.Label>
                   <Form.Control
                     type="number"
-                    value={quiz.timeLimit || 20}
-                    onChange={(e) => setQuiz({ ...quiz, timeLimit: parseInt(e.target.value) || 20 })}
+                    value={calculateTotalPoints()}
+                    disabled
                   />
+                  <Form.Text className="text-muted">
+                    Total points from all questions
+                  </Form.Text>
                 </Form.Group>
               </Col>
               <Col md={6}>
@@ -126,6 +140,30 @@ export default function QuizEditor() {
                     onChange={(e) => setQuiz({ ...quiz, accessCode: e.target.value })}
                     placeholder="Leave blank for no code"
                   />
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Row className="mb-3">
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>Time Limit</Form.Label>
+                  <div className="d-flex align-items-center">
+                    <Form.Check
+                      type="checkbox"
+                      checked={quiz.hasTimeLimit || false}
+                      onChange={(e) => setQuiz({ ...quiz, hasTimeLimit: e.target.checked })}
+                      className="me-2"
+                    />
+                    <Form.Control
+                      type="number"
+                      value={quiz.timeLimit || 20}
+                      onChange={(e) => setQuiz({ ...quiz, timeLimit: parseInt(e.target.value) || 20 })}
+                      disabled={!quiz.hasTimeLimit}
+                      style={{ width: "100px" }}
+                    />
+                    <span className="ms-2">Minutes</span>
+                  </div>
                 </Form.Group>
               </Col>
             </Row>
@@ -151,11 +189,11 @@ export default function QuizEditor() {
             {quiz.multipleAttempts && (
               <Form.Group className="mb-3">
                 <Form.Label>How Many Attempts</Form.Label>
-              <Form.Control
-                type="number"
-                value={quiz.howManyAttempts || 1}
-                onChange={(e) => setQuiz({ ...quiz, howManyAttempts: parseInt(e.target.value) || 1 })}
-              />
+                <Form.Control
+                  type="number"
+                  value={quiz.howManyAttempts || 1}
+                  onChange={(e) => setQuiz({ ...quiz, howManyAttempts: parseInt(e.target.value) || 1 })}
+                />
               </Form.Group>
             )}
 
